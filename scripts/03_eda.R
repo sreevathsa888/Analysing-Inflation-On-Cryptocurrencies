@@ -169,3 +169,81 @@ rolling_plot <- ggplot(data, aes(x=date, y=rolling_corr_btc)) +
 
 rolling_plot
 ggsave("outputs/rolling_correlation_btc_inflation.png", rolling_plot)
+data$CPI <- as.numeric(data$CPI)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(corrplot)
+library(tidyr)
+library(zoo)
+
+install.packages("zoo")
+
+data$rolling_corr_btc <- rollapply(
+  data[,c("BTC_price","CPI")],
+  width = 30,
+  FUN = function(x) cor(x[,1], x[,2], use="complete.obs"),
+  by.column = FALSE,
+  fill = NA,
+  align = "right"
+)
+data$rolling_corr_btc
+
+
+data$rolling_corr_eth <- rollapply(
+  data[,c("ETH_price","CPI")],
+  width = 30,
+  FUN = function(x) cor(x[,1], x[,2], use="complete.obs"),
+  by.column = FALSE,
+  fill = NA,
+  align = "right"
+)
+
+data$rolling_corr_sol <- rollapply(
+  data[,c("SOL_price","CPI")],
+  width = 30,
+  FUN = function(x) cor(x[,1], x[,2], use="complete.obs"),
+  by.column = FALSE,
+  fill = NA,
+  align = "right"
+)
+
+
+btc_roll_plot <- ggplot(data, aes(x=date, y=rolling_corr_btc)) +
+  geom_line(color="darkgreen") +
+  labs(
+    title="Rolling Correlation: Bitcoin vs Inflation",
+    x="Date",
+    y="Correlation"
+  ) +
+  theme_minimal()
+
+print(btc_roll_plot)
+
+ggsave("outputs/btc_inflation_rolling_corr.png", btc_roll_plot)
+
+
+eth_roll_plot <- ggplot(data, aes(x=date, y=rolling_corr_eth)) +
+  geom_line(color="blue") +
+  labs(
+    title="Rolling Correlation: Ethereum vs Inflation",
+    x="Date",
+    y="Correlation"
+  ) +
+  theme_minimal()
+print(eth_roll_plot)
+
+ggsave("outputs/eth_inflation_rolling_corr.png", eth_roll_plot)
+
+
+sol_roll_plot <- ggplot(data, aes(x=date, y=rolling_corr_sol)) +
+  geom_line(color="purple") +
+  labs(
+    title="Rolling Correlation: Solana vs Inflation",
+    x="Date",
+    y="Correlation"
+  ) +
+  theme_minimal()
+print(sol_roll_plot)
+
+ggsave("outputs/sol_inflation_rolling_corr.png", sol_roll_plot)
