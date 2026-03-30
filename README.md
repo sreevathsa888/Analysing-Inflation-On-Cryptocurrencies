@@ -88,12 +88,6 @@ The project includes an interactive Power BI dashboard with:
 * Residual analysis
 * Forecast visualization
 
-### 🔹 Insights Page
-
-* Key findings
-* Model interpretation
-* Final conclusions
-
 ---
 
 ## 📈 Key Insights
@@ -155,6 +149,6 @@ This project demonstrates how macroeconomic indicators influence cryptocurrency 
 
 ## ⭐ Acknowledgment
 
-This project was developed as part of a **Programming for Data Science** course to demonstrate real-world data analysis and visualization skills.
+This project was developed as part of a **Data Mining** course to demonstrate real-world data analysis and visualization skills.
 
 ---
